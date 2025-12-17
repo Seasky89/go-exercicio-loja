@@ -1,5 +1,3 @@
-{{define "New"}}
-
 {{template "_head"}}
 
 <body>
@@ -8,16 +6,17 @@
     <div class="container">
         <div class="jumbotron jumbotron-fluid">
             <div class="container">
-                <h1 class="display-5">Novo produto</h1>
-                <p class="lead">Insira os detalhes</p>
+                <h1 class="display-5">{{if .Id}}Editar Produto{{else}}Novo Produto{{end}}</h1>
+                <p class="lead">Insira os dados do produto</p>
             </div>
         </div>
-        <form method="POST" action="insert">
+        <form method="POST" action="{{if .Id}}/products/update{{else}}/products/insert{{end}}">
+            <input type="hidden" name="id" value="{{.Id}}" />
             <div class="row">
                 <div class="col-sm-8">
                     <div class="form-group">
                         <label for="nome">Nome:</label>
-                        <input type="text" name="nome" class="form-control">
+                        <input type="text" name="nome" class="form-control" value="{{.Nome}}">
                     </div>
                 </div>
             </div>
@@ -25,7 +24,7 @@
                 <div class="col-sm-8">
                     <div class="form-group">
                         <label for="descricao">Descrição:</label>
-                        <input type="text" name="descricao" class="form-control">
+                        <input type="text" name="descricao" class="form-control" value="{{.Descricao}}">
                     </div>
                 </div>
             </div>
@@ -33,7 +32,7 @@
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label for="preco">Preço:</label>
-                        <input type="number" name="preco" class="form-control" step="0.01">
+                        <input type="number" name="preco" class="form-control" step="0.01" value="{{.Preco}}">
                     </div>
                 </div>
             </div>
@@ -41,15 +40,14 @@
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label for="quantidade">Quantidade:</label>
-                        <input type="number" name="quantidade" class="form-control">
+                        <input type="number" name="quantidade" class="form-control" value="{{.Quantidade}}">
                     </div>
                 </div>
             </div>
-            <button type="submit" value="salvar" class="btn btn-success">Salvar</button>
+            <button type="submit" value="salvar" class="btn btn-success">{{if .Id}}Atualizar{{else}}Salvar{{end}}</button>
             <a class="btn btn-info" href="/">Voltar</a>
         </form>
     </div>
 </body>
 
 </html>
-{{end}}
